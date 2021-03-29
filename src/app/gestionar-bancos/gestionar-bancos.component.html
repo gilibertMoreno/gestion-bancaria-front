@@ -1,0 +1,85 @@
+<div class="container">
+  <div fxLayout fxLayoutAlign="space-between center" class="title-container">
+    <h1 class="title">Getionar Bancos</h1>
+    <button
+      nz-button
+      nzType="primary"
+      type="button"
+      class="create-button"
+      (click)="addBanco()"
+      style="
+        font-weight: 400;
+        height: 32px;
+        text-transform: none;
+        font-size: 14px;
+        padding: 0 15px;
+        border: 1px solid #d9d9d9;
+      "
+      status="primary"
+      id="btncreate"
+    >
+      <i nz-icon nzType="robot"></i>
+      <span>Crear</span>
+    </button>
+  </div>
+  <hr class="divider" />
+
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th>Nit</th>
+        <th>Nombre</th>
+        <th>Lema</th>
+        <th>Fecha de Registro</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.nit }}</td>
+        <td>{{ data.nameBank }}</td>
+        <td>{{ data.watchword }}</td>
+        <td>{{ data.registrationDate }}</td>
+        <td>
+          <button nz-button nzType="primary" nzShape="circle" (click)="updateBanco(data)"><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button nz-button nzType="primary" nzShape="circle" (click)="deleteBank(data)"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+</div>
+
+<nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="Gestionar Bancos"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="submitForm()"
+    >
+
+        <form nz-form [formGroup]="validateForm" class="login-form container" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="nit" placeholder="Nit Del Banco" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="lock">
+                <input type="text" nz-input formControlName="nameBank" placeholder="Nombre del Banco" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="watchword" placeholder="Lema del Banco" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+
+
+    </nz-modal>

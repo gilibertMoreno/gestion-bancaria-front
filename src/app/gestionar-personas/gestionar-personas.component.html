@@ -1,0 +1,110 @@
+<div class="container">
+  <div fxLayout fxLayoutAlign="space-between center" class="title-container">
+    <h1 class="title">Getionar Personas</h1>
+    <button
+      nz-button
+      nzType="primary"
+      type="button"
+      class="create-button"
+      (click)="addPersona()"
+      style="
+        font-weight: 400;
+        height: 32px;
+        text-transform: none;
+        font-size: 14px;
+        padding: 0 15px;
+        border: 1px solid #d9d9d9;
+      "
+      status="primary"
+      id="btncreate"
+    >
+      <i nz-icon nzType="robot"></i>
+      <span>Crear</span>
+    </button>
+  </div>
+  <hr class="divider" />
+
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th>Cedula</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Edad</th>
+        <th>Correo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.identification }}</td>
+        <td>{{ data.names }}</td>
+        <td>{{ data.lasName }}</td>
+        <td>{{ data.dateBird }}</td>
+        <td>{{ data.age }}</td>
+        <td>{{ data.email }}</td>
+        <td>
+          <button nz-button nzType="primary" nzShape="circle" (click)="updatePersona(data)"><i nz-icon nzType="edit" nzTheme="outline"></i></button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button nz-button nzType="primary" nzShape="circle" (click)="deletePerson(data)"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+</div>
+
+<nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="Gestionar Personas"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="submitForm()"
+    >
+
+        <form nz-form [formGroup]="validateForm" class="login-form container" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="identification" placeholder="Cedula De la Persona" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="lock">
+                <input type="text" nz-input formControlName="names" placeholder="Nombre de la Persona" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="lasName" placeholder="Apellidos de la Persona" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="date" nz-input formControlName="dateBird" placeholder="Fecha de nacimiento de la Persona" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="number" nz-input formControlName="age" placeholder="Edad de la Persona" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="email" nz-input formControlName="email" placeholder="Correo de la Persona" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+
+
+    </nz-modal>

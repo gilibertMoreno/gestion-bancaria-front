@@ -1,0 +1,73 @@
+
+<div class="container">
+  <div fxLayout fxLayoutAlign="space-between center" class="title-container">
+    <h1 class="title">Getionar Cuentas Bancarias</h1>
+    <button
+      nz-button
+      nzType="primary"
+      type="button"
+      class="create-button"
+      (click)="addCuentasBAncos()"
+      style="
+        font-weight: 400;
+        height: 32px;
+        text-transform: none;
+        font-size: 14px;
+        padding: 0 15px;
+        border: 1px solid #d9d9d9;
+      "
+      status="primary"
+      id="btncreate"
+    >
+      <i nz-icon nzType="robot"></i>
+      <span>Crear Cuenta</span>
+    </button>
+  </div>
+  <hr class="divider" />
+
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th>Cedula</th>
+        <th>Nombre</th>
+        <th>Banco</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.personIdentification}}</td>
+        <td>{{ data.personName}}</td>
+        <td>{{ data.bankName}}</td>
+        <td>
+       </td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+</div>
+
+<nz-modal
+      [(nzVisible)]="isVisible"
+      nzTitle="Gestionar Cuentas Bancarias"
+      (nzOnCancel)="handleCancel()"
+      (nzOnOk)="submitForm()"
+    >
+
+        <form nz-form [formGroup]="validateForm" class="login-form container" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-select nzPlaceHolder="Select a person" formControlName="idBank">
+                <nz-option  *ngFor="let data of listBank" [nzLabel]="data.nameBank" [nzValue]="data.idBank"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Por favor llenar el campo">
+              <nz-select nzPlaceHolder="Select a person" formControlName="idPerson">
+                <nz-option *ngFor="let data of listPerson" [nzLabel]="data.names" [nzValue]="data.idPerson"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+
+    </nz-modal>
